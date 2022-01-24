@@ -19,7 +19,7 @@ As regras de negócio do servidor são básicas (cadastro de usuários), pois o 
 
 A arquitetura foi pensada com que seja possível utilizar as mesmas funções lógicas independente do padrão da requisição. 
 
-# Instalação, inicilização e testes
+# Instalação, inicialização e testes
 Dentro da pasta do projeto, em um terminal que tenha node, rode `yarn install`, após instalado os pacotes, rode o script `yarn start` para inicializar o server.
 
 Para teste de comunicação com o servidor, rode o script `yarn test`, que simulará uma requisição vinda do client com o pacote soap, para simular as requisições REST, recomendo utilização de algum software, como Insomnia ou Postman.
