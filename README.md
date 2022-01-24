@@ -1,4 +1,4 @@
-# express-rest-soap-server-example 
+# express-soap-rest-server-example
 Um servidor simples desenvolvido como exemplo da utilização do pacote "express" junto ao pacote "soap".
 
 # Introdução
