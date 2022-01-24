@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <definitions> must be the root of the WSDL document -->
+<!-- Name how the document is called -->
+<!-- The targetNamespace is a convention of XML Schema that enables the WSDL document to refer to itself. -->
+<!-- tempuri.org is the test default namespace URI used by Microsoft development products, like Visual Studio. -->
+<wsdl:definitions 
+  name="soap-express-crud-example"
+  targetNamespace="http://tempuri.org/" 
+  xmlns:tns="http://tempuri.org/" 
+  xmlns:s="http://www.w3.org/2001/XMLSchema" 
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:types="http://schemas.lucaskaminski.com/user"
+  >
+
+  <!-- WSDL TYPES: definition of the data types that are used in the web service -->
+  <wsdl:types>
+    <s:schema targetNamespace="http://schemas.lucaskaminski.com/user" elementFormDefault="qualified">
+			<s:include schemaLocation="static/wsdl/xsd/UserTypes.xsd" />
+		</s:schema>
+  </wsdl:types>
+
+  <!-- MESSAGES: defines the data being exchanged between the service and client -->
+  <wsdl:message name="CreateUserRequest">
+    <wsdl:part name="parameters" element="types:CreateUserRequestDataType"/>
+  </wsdl:message>
+
+  <wsdl:message name="CreateUserResponse">
+      <wsdl:part name="parameters" element="types:DefaultResponseDataType"/>
+  </wsdl:message>
+
+  <wsdl:message name="ReadUserRequest">
+    <wsdl:part name="parameters" element="types:ReadUserRequestDataType"/>
+  </wsdl:message>
+
+  <wsdl:message name="ReadUserResponse">
+      <wsdl:part name="parameters" element="types:DefaultResponseDataType"/>
+  </wsdl:message>
+
+  <wsdl:message name="UpdateUserRequest">
+    <wsdl:part name="parameters" element="types:UpdateUserRequestDataType"/>
+  </wsdl:message>
+
+  <wsdl:message name="DeleteUserRequest">
+    <wsdl:part name="parameters" element="types:DeleteUserRequestDataType"/>
+  </wsdl:message>
+
+  <wsdl:message name="DeleteUserResponse">
+      <wsdl:part name="parameters" element="types:DefaultResponseDataType"/>
+  </wsdl:message>
+
+
+  <!-- PORT TYPES: defines the complete communication operation (one way/round trip) -->
+    <!-- The operation name must be the same as the one specified in the service object -->
+  <wsdl:portType name="UserPortType">
+    <wsdl:operation name="CreateUser">
+      <wsdl:input message="tns:CreateUserRequest"/>
+      <wsdl:output message="tns:CreateUserResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="ReadUser">
+      <wsdl:input message="tns:ReadUserRequest"/>
+      <wsdl:output message="tns:ReadUserResponse"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="UpdateUser">
+      <wsdl:input message="tns:UpdateUserRequest"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="DeleteUser">
+      <wsdl:input message="tns:DeleteUserRequest"/>
+      <wsdl:output message="tns:DeleteUserResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <!-- BINDING: provides details on how a portType operation will actually be transmitted -->
+  <wsdl:binding name="UserSoapBinding" type="tns:UserPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="CreateUserBindingOperation">
+      <soap:operation soapAction="/" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="ReadUserBindingOperation">
+      <soap:operation soapAction="/read" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="UpdateUserBindingOperation">
+      <soap:operation soapAction="/update" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+
+    <wsdl:operation name="DeleteUserBindingOperation">
+      <soap:operation soapAction="/delete" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>    
+  </wsdl:binding>
+
+  <!-- SERVICE:  -->
+  <wsdl:service name="UserService">
+    <wsdl:port name="UserServiceSoapPort" binding="tns:UserSoapBinding">
+      <soap:address location="http://localhost:3000/SOAP/user"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

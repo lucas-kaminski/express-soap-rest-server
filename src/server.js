@@ -6,25 +6,16 @@ const app = express()
 const SERVER_PORT = process.env.PORT || 3000;
 
 const userRoutes = require('./api/user.routes')
-const USER_WSDL = fs.readFileSync('src/api/user.wsdl', 'utf8');
-const ADDRESS_WSDL = fs.readFileSync('src/api/address.wsdl', 'utf8');
+const USER_WSDL = fs.readFileSync('src/static/wsdl/user.wsdl', 'utf8');
+const ADDRESS_WSDL = fs.readFileSync('src/static/wsdl/address.wsdl', 'utf8');
 
 const { CreateUser, DeleteUser, ReadUser, UpdateUser } = require('./services/UserCrudOperations')
 const { GetAddressByCEP } = require('./services/AddressOperations')
 
 const userServicesSoapObject = {
-  CreateUserService: {
-    CreateUserServiceSoapPort: { CreateUser }
-  },
-  ReadUserService: {
-    ReadUserServiceSoapPort: { ReadUser }
-  },
-  UpdateUserService: {
-    UpdateUserServiceSoapPort: { UpdateUser }
-  },
-  DeleteUserService: {
-    DeleteUserServiceSoapPort: { DeleteUser }
-  },
+  UserService: {
+    UserServiceSoapPort: { CreateUser, DeleteUser, ReadUser, UpdateUser }
+  }
 }
 
 const addressServiceSoapObject = {
@@ -39,6 +30,8 @@ app.use((req, _, next) => {
 })
 
 app.use(express.json())
+
+app.use('/SOAP/static', express.static('src/static'))
 
 app.get('/ping', (_, res) => {
   return res.status(200).json({ result: 'PONG' })

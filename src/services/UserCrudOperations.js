@@ -1,5 +1,11 @@
+const fs = require('fs')
 
 exports.CreateUser = (args) => {
+  fs.writeFile('log.txt', args, (err) => {
+    if (err) throw err;
+
+    console.log("The file was succesfully saved!");
+  })
   return {
     result: [args.name, args.email]
   }

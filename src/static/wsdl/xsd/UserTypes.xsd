@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://schemas.lucaskaminski.com/user" 
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.0.0">
+
+	<xs:element name="CreateUserRequest" type="message:CreateUserRequestType" />
+	<xs:element name="ReadUserRequest" type="message:ReadUserRequestType" />
+	<xs:element name="UpdateUserRequest" type="message:UpdateUserRequestType" />
+	<xs:element name="DeleteUserRequest" type="message:DeleteUserRequestType" />
+
+<xs:element name="CreateUserRequestDataType">
+  <xs:complexType name="CreateUserRequest">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Nome social.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="email" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>E-mail de contato.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="birthdate" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Data de nascimento.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="ReadUserRequestDataType">
+	<xs:complexType name="ReadUserRequest">
+		<xs:sequence>
+			<xs:element name="email" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>E-mail de identificação do usuário.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="UpdateUserRequestDataType">
+  <xs:complexType name="UpdateUserRequest">
+		<xs:sequence>
+			<xs:element name="email" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>E-mail a ser atualizado.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="birthdate" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Data de nascimento a ser atualizada.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="DeleteUserRequestDataType">
+  <xs:complexType name="DeleteUserRequest">
+		<xs:sequence>
+			<xs:element name="email" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>E-mail de identificação para deletar o usuário.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="DefaultResponseDataType">
+  <xs:complexType name="DefaultResponse">
+		<xs:sequence>
+			<xs:element name="result" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Resultado da requisição.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+  
+</xs:schema>
