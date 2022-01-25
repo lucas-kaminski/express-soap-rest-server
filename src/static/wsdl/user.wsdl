@@ -3,121 +3,183 @@
 <!-- Name how the document is called -->
 <!-- The targetNamespace is a convention of XML Schema that enables the WSDL document to refer to itself. -->
 <!-- tempuri.org is the test default namespace URI used by Microsoft development products, like Visual Studio. -->
-<wsdl:definitions 
-  name="soap-express-crud-example"
-  targetNamespace="http://tempuri.org/" 
-  xmlns:tns="http://tempuri.org/" 
-  xmlns:s="http://www.w3.org/2001/XMLSchema" 
-  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-  xmlns:types="http://schemas.lucaskaminski.com/user"
-  >
+<wsdl:definitions name="user-wsdl" targetNamespace="http://schemas.lucaskaminski.com/host" xmlns:tns="http://schemas.lucaskaminski.com/host" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:types="http://schemas.lucaskaminski.com/user">
 
   <!-- WSDL TYPES: definition of the data types that are used in the web service -->
   <wsdl:types>
-    <s:schema targetNamespace="http://schemas.lucaskaminski.com/user" elementFormDefault="qualified">
-			<s:include schemaLocation="static/wsdl/xsd/UserTypes.xsd" />
-		</s:schema>
+    <s:schema targetNamespace="http://schemas.lucaskaminski.com/user" xmlns:message="http://schemas.lucaskaminski.com/user" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+      <!-- <s:include schemaLocation="static/wsdl/xsd/UserTypes.xsd" /> -->
+      <s:element name="CreateUserRequest" type="message:CreateUserRequestType" />
+      <s:element name="ReadUserRequest" type="message:ReadUserRequestType" />
+      <s:element name="UpdateUserRequest" type="message:UpdateUserRequestType" />
+      <s:element name="DeleteUserRequest" type="message:DeleteUserRequestType" />
+      <s:element name="DefaultResponse" type="message:DefaultResponseType" />
+
+      <s:complexType name="CreateUserRequestType">
+        <s:sequence>
+          <s:element name="name" type="s:string">
+            <s:annotation>
+              <s:documentation>Nome social.</s:documentation>
+            </s:annotation>
+          </s:element>
+          <s:element name="email" type="s:string">
+            <s:annotation>
+              <s:documentation>E-mail de contato.</s:documentation>
+            </s:annotation>
+          </s:element>
+          <s:element name="birthdate" type="s:string">
+            <s:annotation>
+              <s:documentation>Data de nascimento.</s:documentation>
+            </s:annotation>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="ReadUserRequestType">
+        <s:sequence>
+          <s:element name="email" type="s:string">
+            <s:annotation>
+              <s:documentation>E-mail de identificação do usuário.</s:documentation>
+            </s:annotation>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="UpdateUserRequestType">
+        <s:sequence>
+          <s:element name="email" type="s:string">
+            <s:annotation>
+              <s:documentation>E-mail a ser atualizado.</s:documentation>
+            </s:annotation>
+          </s:element>
+          <s:element name="birthdate" type="s:string">
+            <s:annotation>
+              <s:documentation>Data de nascimento a ser atualizada.</s:documentation>
+            </s:annotation>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="DeleteUserRequestType">
+        <s:sequence>
+          <s:element name="email" type="s:string">
+            <s:annotation>
+              <s:documentation>E-mail de identificação para deletar o usuário.</s:documentation>
+            </s:annotation>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="DefaultResponseType">
+        <s:sequence>
+          <s:element name="result" type="s:string">
+            <s:annotation>
+              <s:documentation>Resultado da requisição.</s:documentation>
+            </s:annotation>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
   </wsdl:types>
 
   <!-- MESSAGES: defines the data being exchanged between the service and client -->
-  <wsdl:message name="CreateUserRequest">
-    <wsdl:part name="parameters" element="types:CreateUserRequestDataType"/>
+  <wsdl:message name="CreateUserRequestMessage">
+    <wsdl:part name="parameters" element="types:CreateUserRequest" />
   </wsdl:message>
 
-  <wsdl:message name="CreateUserResponse">
-      <wsdl:part name="parameters" element="types:DefaultResponseDataType"/>
+  <wsdl:message name="CreateUserResponseMessage">
+    <wsdl:part name="parameters" element="types:DefaultResponse" />
   </wsdl:message>
 
-  <wsdl:message name="ReadUserRequest">
-    <wsdl:part name="parameters" element="types:ReadUserRequestDataType"/>
+  <wsdl:message name="ReadUserRequestMessage">
+    <wsdl:part name="parameters" element="types:ReadUserRequest" />
   </wsdl:message>
 
-  <wsdl:message name="ReadUserResponse">
-      <wsdl:part name="parameters" element="types:DefaultResponseDataType"/>
+  <wsdl:message name="ReadUserResponseMessage">
+    <wsdl:part name="parameters" element="types:DefaultResponse" />
   </wsdl:message>
 
-  <wsdl:message name="UpdateUserRequest">
-    <wsdl:part name="parameters" element="types:UpdateUserRequestDataType"/>
+  <wsdl:message name="UpdateUserRequestMessage">
+    <wsdl:part name="parameters" element="types:UpdateUserRequest" />
   </wsdl:message>
 
-  <wsdl:message name="DeleteUserRequest">
-    <wsdl:part name="parameters" element="types:DeleteUserRequestDataType"/>
+  <wsdl:message name="DeleteUserRequestMessage">
+    <wsdl:part name="parameters" element="types:DeleteUserRequest" />
   </wsdl:message>
 
-  <wsdl:message name="DeleteUserResponse">
-      <wsdl:part name="parameters" element="types:DefaultResponseDataType"/>
+  <wsdl:message name="DeleteUserResponseMessage">
+    <wsdl:part name="parameters" element="types:DefaultResponse" />
   </wsdl:message>
 
 
   <!-- PORT TYPES: defines the complete communication operation (one way/round trip) -->
-    <!-- The operation name must be the same as the one specified in the service object -->
+  <!-- The operation name must be the same as the one specified in the service object -->
   <wsdl:portType name="UserPortType">
     <wsdl:operation name="CreateUser">
-      <wsdl:input message="tns:CreateUserRequest"/>
-      <wsdl:output message="tns:CreateUserResponse"/>
+      <wsdl:input message="tns:CreateUserRequestMessage" />
+      <wsdl:output message="tns:CreateUserResponseMessage" />
     </wsdl:operation>
 
     <wsdl:operation name="ReadUser">
-      <wsdl:input message="tns:ReadUserRequest"/>
-      <wsdl:output message="tns:ReadUserResponse"/>
+      <wsdl:input message="tns:ReadUserRequestMessage" />
+      <wsdl:output message="tns:ReadUserResponseMessage" />
     </wsdl:operation>
-    
+
     <wsdl:operation name="UpdateUser">
-      <wsdl:input message="tns:UpdateUserRequest"/>
+      <wsdl:input message="tns:UpdateUserRequestMessage" />
     </wsdl:operation>
 
     <wsdl:operation name="DeleteUser">
-      <wsdl:input message="tns:DeleteUserRequest"/>
-      <wsdl:output message="tns:DeleteUserResponse"/>
+      <wsdl:input message="tns:DeleteUserRequestMessage" />
+      <wsdl:output message="tns:DeleteUserResponseMessage" />
     </wsdl:operation>
   </wsdl:portType>
 
   <!-- BINDING: provides details on how a portType operation will actually be transmitted -->
   <wsdl:binding name="UserSoapBinding" type="tns:UserPortType">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="CreateUserBindingOperation">
-      <soap:operation soapAction="/" style="document"/>
+      <soap:operation soapAction="/" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
 
     <wsdl:operation name="ReadUserBindingOperation">
-      <soap:operation soapAction="/read" style="document"/>
+      <soap:operation soapAction="/" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
 
     <wsdl:operation name="UpdateUserBindingOperation">
-      <soap:operation soapAction="/update" style="document"/>
+      <soap:operation soapAction="/" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
 
     <wsdl:operation name="DeleteUserBindingOperation">
-      <soap:operation soapAction="/delete" style="document"/>
+      <soap:operation soapAction="/" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
-    </wsdl:operation>    
+    </wsdl:operation>
   </wsdl:binding>
 
   <!-- SERVICE:  -->
   <wsdl:service name="UserService">
     <wsdl:port name="UserServiceSoapPort" binding="tns:UserSoapBinding">
-      <soap:address location="http://localhost:3000/SOAP/user"/>
+      <soap:address location="http://localhost:3000/SOAP/user" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

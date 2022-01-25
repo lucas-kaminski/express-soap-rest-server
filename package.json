@@ -9,7 +9,7 @@
     "soap": "^0.43.0"
   },
   "scripts": {
-    "start": "nodemon src/server.js",
+    "start": "node src/server.js ",
     "client": "node src/client.js"
   }
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://schemas.lucaskaminski.com/user" 
+	targetNamespace="http://schemas.lucaskaminski.com/user"
+  xmlns:message="http://schemas.lucaskaminski.com/user"
 	elementFormDefault="qualified"
 	attributeFormDefault="unqualified"
 	version="1.0.0">
@@ -10,9 +11,9 @@
 	<xs:element name="ReadUserRequest" type="message:ReadUserRequestType" />
 	<xs:element name="UpdateUserRequest" type="message:UpdateUserRequestType" />
 	<xs:element name="DeleteUserRequest" type="message:DeleteUserRequestType" />
+	<xs:element name="DefaultResponse" type="message:DefaultResponseType" />
 
-<xs:element name="CreateUserRequestDataType">
-  <xs:complexType name="CreateUserRequest">
+  <xs:complexType name="CreateUserRequestType">
 		<xs:sequence>
 			<xs:element name="name" type="xs:string">
 				<xs:annotation>
@@ -30,11 +31,9 @@
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-	</xs:complexType>
-</xs:element>
+  </xs:complexType>
 
-<xs:element name="ReadUserRequestDataType">
-	<xs:complexType name="ReadUserRequest">
+  <xs:complexType name="ReadUserRequestType">
 		<xs:sequence>
 			<xs:element name="email" type="xs:string">
 				<xs:annotation>
@@ -42,11 +41,9 @@
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-	</xs:complexType>
-</xs:element>
+  </xs:complexType>
 
-<xs:element name="UpdateUserRequestDataType">
-  <xs:complexType name="UpdateUserRequest">
+<xs:complexType name="UpdateUserRequestType">
 		<xs:sequence>
 			<xs:element name="email" type="xs:string">
 				<xs:annotation>
@@ -59,11 +56,9 @@
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-	</xs:complexType>
-</xs:element>
+</xs:complexType>
 
-<xs:element name="DeleteUserRequestDataType">
-  <xs:complexType name="DeleteUserRequest">
+<xs:complexType name="DeleteUserRequestType">
 		<xs:sequence>
 			<xs:element name="email" type="xs:string">
 				<xs:annotation>
@@ -71,11 +66,9 @@
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-	</xs:complexType>
-</xs:element>
+</xs:complexType>
 
-<xs:element name="DefaultResponseDataType">
-  <xs:complexType name="DefaultResponse">
+<xs:complexType name="DefaultResponseType">
 		<xs:sequence>
 			<xs:element name="result" type="xs:string">
 				<xs:annotation>
@@ -83,7 +76,5 @@
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-	</xs:complexType>
-</xs:element>
-  
+</xs:complexType>
 </xs:schema>

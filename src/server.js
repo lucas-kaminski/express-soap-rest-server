@@ -24,6 +24,8 @@ const addressServiceSoapObject = {
   }
 }
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
+
 app.use((req, _, next) => {
   console.log(`[${req.method}] - ${req.url}`)
   next()
